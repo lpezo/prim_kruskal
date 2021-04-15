@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prims-kruskal", "prims-kruskal\prims-kruskal.csproj", "{2FD19307-8FE2-4644-9065-F41D3949463F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARM", "ARM\ARM.csproj", "{53BDB6AF-11FA-4FF9-9517-975BCE4DF536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARM.Tests", "ARM.Tests\ARM.Tests.csproj", "{E331B278-DDA7-4438-8BC2-56FCD055B153}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FD19307-8FE2-4644-9065-F41D3949463F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD19307-8FE2-4644-9065-F41D3949463F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD19307-8FE2-4644-9065-F41D3949463F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD19307-8FE2-4644-9065-F41D3949463F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53BDB6AF-11FA-4FF9-9517-975BCE4DF536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53BDB6AF-11FA-4FF9-9517-975BCE4DF536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53BDB6AF-11FA-4FF9-9517-975BCE4DF536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53BDB6AF-11FA-4FF9-9517-975BCE4DF536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E331B278-DDA7-4438-8BC2-56FCD055B153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E331B278-DDA7-4438-8BC2-56FCD055B153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E331B278-DDA7-4438-8BC2-56FCD055B153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E331B278-DDA7-4438-8BC2-56FCD055B153}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
