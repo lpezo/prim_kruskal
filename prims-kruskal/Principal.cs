@@ -343,9 +343,25 @@ namespace prims_kruskal
             {
                 ((EnlaceVisual)this.resolucion[indiceResolucion]).Color = Color.Red;
             }
+            indiceResolucion = -1;
             this.Dibujar(false);
         }
-
+        private void btnContinuar_Click(object sender, EventArgs e)
+        {
+            if (indiceResolucion <= 0)
+            {
+                for (int indiceResolucion = 0; indiceResolucion < this.resolucion.Count; indiceResolucion++)
+                {
+                    ((EnlaceVisual)this.resolucion[indiceResolucion]).Color = Color.Gray;
+                }
+            }
+            if (indiceResolucion >= 0 && indiceResolucion < this.resolucion.Count)
+                ((EnlaceVisual)this.resolucion[indiceResolucion]).Color = Color.Red;
+            indiceResolucion++;
+            if (indiceResolucion >= this.resolucion.Count)
+                indiceResolucion = -1;
+            Dibujar(false);
+        }
         private void ResetResolucion() {
             this.resolucion = new List<Enlace>();
             this.indiceResolucion = 0;

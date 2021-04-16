@@ -73,6 +73,8 @@
             this.tlabelArchivo = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnContinuar = new System.Windows.Forms.Button();
+            this.primToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHeu)).BeginInit();
@@ -116,7 +118,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.groupBox1.Controls.Add(this.btnKruskal);
             this.groupBox1.Controls.Add(this.btnPrim);
             this.groupBox1.Location = new System.Drawing.Point(19, 19);
@@ -332,46 +333,47 @@
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.nuevoToolStripMenuItem.Text = "&Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.abrirToolStripMenuItem.Text = "&Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // grabarToolStripMenuItem1
             // 
             this.grabarToolStripMenuItem1.Name = "grabarToolStripMenuItem1";
-            this.grabarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.grabarToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
             this.grabarToolStripMenuItem1.Text = "&Grabar";
             this.grabarToolStripMenuItem1.Click += new System.EventHandler(this.grabarToolStripMenuItem1_Click);
             // 
             // grabarToolStripMenuItem
             // 
             this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
-            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.grabarToolStripMenuItem.Text = "Grabar &como ...";
             this.grabarToolStripMenuItem.Click += new System.EventHandler(this.grabarComoToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 6);
             // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.salirToolStripMenuItem.Text = "&Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
             // algoritmoToolStripMenuItem
             // 
             this.algoritmoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.primToolStripMenuItem,
             this.kruskalToolStripMenuItem,
             this.costoUniformeToolStripMenuItem,
             this.aToolStripMenuItem,
@@ -398,8 +400,9 @@
             // aToolStripMenuItem
             // 
             this.aToolStripMenuItem.Name = "aToolStripMenuItem";
-            this.aToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.aToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aToolStripMenuItem.Text = "A*";
+            this.aToolStripMenuItem.Visible = false;
             this.aToolStripMenuItem.Click += new System.EventHandler(this.aToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
@@ -426,7 +429,8 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox5.BackColor = System.Drawing.Color.SteelBlue;
+            this.groupBox5.Controls.Add(this.btnContinuar);
             this.groupBox5.Controls.Add(this.groupBox1);
             this.groupBox5.Controls.Add(this.groupBox2);
             this.groupBox5.Controls.Add(this.groupBox4);
@@ -434,7 +438,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox5.Location = new System.Drawing.Point(547, 0);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(304, 537);
+            this.groupBox5.Size = new System.Drawing.Size(304, 589);
             this.groupBox5.TabIndex = 21;
             this.groupBox5.TabStop = false;
             // 
@@ -443,7 +447,7 @@
             this.box.Dock = System.Windows.Forms.DockStyle.Fill;
             this.box.Location = new System.Drawing.Point(0, 0);
             this.box.Name = "box";
-            this.box.Size = new System.Drawing.Size(547, 537);
+            this.box.Size = new System.Drawing.Size(547, 589);
             this.box.TabIndex = 22;
             this.box.TabStop = false;
             this.box.Paint += new System.Windows.Forms.PaintEventHandler(this.box_Paint);
@@ -456,7 +460,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlabelGrabado,
             this.tlabelArchivo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 561);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 613);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(851, 24);
             this.statusStrip1.TabIndex = 23;
@@ -487,7 +491,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(851, 537);
+            this.panel1.Size = new System.Drawing.Size(851, 589);
             this.panel1.TabIndex = 24;
             // 
             // panel2
@@ -497,15 +501,32 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(547, 537);
+            this.panel2.Size = new System.Drawing.Size(547, 589);
             this.panel2.TabIndex = 23;
+            // 
+            // btnContinuar
+            // 
+            this.btnContinuar.Location = new System.Drawing.Point(19, 560);
+            this.btnContinuar.Name = "btnContinuar";
+            this.btnContinuar.Size = new System.Drawing.Size(141, 23);
+            this.btnContinuar.TabIndex = 16;
+            this.btnContinuar.Text = "&Paso a paso";
+            this.btnContinuar.UseVisualStyleBackColor = true;
+            this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
+            // 
+            // primToolStripMenuItem
+            // 
+            this.primToolStripMenuItem.Name = "primToolStripMenuItem";
+            this.primToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.primToolStripMenuItem.Text = "&Prim";
+            this.primToolStripMenuItem.Click += new System.EventHandler(this.btnPrim_Click);
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(851, 585);
+            this.ClientSize = new System.Drawing.Size(851, 637);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -513,7 +534,7 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
-            this.Text = "Implementacion Prim / Kruskal";
+            this.Text = "GRUPO 4 - Implementacion Prim / Kruskal";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Principal_FormClosing);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
@@ -587,6 +608,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem resetearToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnContinuar;
+        private System.Windows.Forms.ToolStripMenuItem primToolStripMenuItem;
     }
 }
 
