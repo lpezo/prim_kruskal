@@ -34,6 +34,9 @@ namespace prims_kruskal
 
         const string tagNodos = "[nodos]";
         const string tagEnlaces = "[enlaces]";
+        const string tagImagen = "[imagen]";
+
+        private formFondo formImagen = null;
 
         public Principal() // constructor
         {
@@ -389,6 +392,12 @@ namespace prims_kruskal
             this.lblResultado.Text = string.Empty;
             this.Desde.Items.Clear();
             this.Hasta.Items.Clear();
+            rutaArchivo = null;
+            if (formImagen != null && !formImagen.IsDisposed)
+            {
+                formImagen.Close();
+                formImagen = null;
+            }
             this.Dibujar(false);
         }
 
@@ -429,9 +438,15 @@ namespace prims_kruskal
                 sw.WriteLine(tagEnlaces);
                 foreach (var enlace in this.enlaces)
                 {
-                    var enl = enlace as EnlaceVisual;
+                    //var enl = enlace as EnlaceVisual;
                     sw.WriteLine(enlace);
                 }
+                if (g.NombreArchivoImagen != null)
+                {
+                    sw.WriteLine(tagImagen);
+                    sw.WriteLine(g.NombreArchivoImagen);
+                }
+
             }
             salvado = true;
             tlabelGrabado.Text = " ";
@@ -448,56 +463,43 @@ namespace prims_kruskal
                     if (File.Exists(openFileDialog1.FileName))
                     {
                         rutaArchivo = openFileDialog1.FileName;
-                        var tam = new Point();
                         using (var read = new StreamReader(openFileDialog1.FileName, Encoding.Default))
                         {
-                            bool esnodo = true;
+                            // 0-> nodo 1-> enlace 2-> imagen
+                            byte tipoTag = 0;
                             string linea;
                             while ( (linea = read.ReadLine()) != null)
                             {
                                 if (linea.StartsWith("[")) {
-                                    esnodo = (linea.Equals(tagNodos));
+                                    if (linea.Equals(tagNodos))
+                                        tipoTag = 0;
+                                    else if (linea.Equals(tagEnlaces))
+                                        tipoTag = 1;
+                                    else if (linea.Equals(tagImagen))
+                                        tipoTag = 2;
                                     continue;
                                 }
-                                if (esnodo)
+                                if (tipoTag == 0)
                                 {
                                     var n1 = new NodoVisual(linea);
                                     AgregaNodo(n1);
-                                    if (n1.Center.X > tam.X || n1.Center.Y > tam.Y)
-                                        tam = n1.Center;
                                 }
-                                else
+                                else if (tipoTag == 1)
                                 {
                                     var e1 = new EnlaceVisual(linea, this.nodos);
                                     g.AgregarEnlace(e1);
                                     this.enlaces.Add(e1);
                                 }
+                                else if (tipoTag == 2)
+                                {
+                                    AsignarImagen(Path.Combine( Path.GetDirectoryName(openFileDialog1.FileName), linea ));
+                                }
                             }
                         }
-                        tam.Offset(20, 20);
+
                         salvado = true;
                         tlabelArchivo.Text = rutaArchivo;
                         tlabelGrabado.Text = " ";
-
-                        string rutaimagen = Path.ChangeExtension(openFileDialog1.FileName, "png");
-                        this.box.Location = new Point(0, 0);
-                        if (File.Exists(rutaimagen))
-                        {
-                            this.box.Dock = DockStyle.None;
-                            this.box.Image = Image.FromFile(rutaimagen);
-                            var nsize = this.box.Image.Size;
-                            if (tam.X > nsize.Width)
-                                nsize.Width = tam.X + 20;
-                            if (tam.Y > nsize.Height)
-                                nsize.Height = tam.Y + 20;
-                            this.box.Size = nsize;
-                        }
-                        else
-                        {
-                            this.box.Image = null;
-                            this.box.Dock = DockStyle.Fill;
-                        }
-
                         this.Dibujar(false);
                     }
                     else
@@ -514,6 +516,40 @@ namespace prims_kruskal
                 if (eclosed != null)
                     eclosed.Cancel = true;
             }
+        }
+
+        private void AsignarImagen(string rutaimagen)
+        {
+            var tam = new Point();
+            foreach (NodoVisual n1 in nodos)
+            {
+                if (n1.Center.X > tam.X || n1.Center.Y > tam.Y)
+                    tam = n1.Center;
+            }
+
+            tam.Offset(20, 20);
+            //string rutaimagen = Path.ChangeExtension(openFileDialog1.FileName, "png");
+            //string rutaimagen = Path.Combine(Path.GetDirectoryName(openFileDialog1.FileName), linea);
+            this.box.Location = new Point(0, 0);
+            if (rutaimagen != null && File.Exists(rutaimagen))
+            {
+                g.NombreArchivoImagen = Path.GetFileName(rutaimagen);
+                this.box.Dock = DockStyle.None;
+                this.box.Image = Image.FromFile(rutaimagen);
+                var nsize = this.box.Image.Size;
+                if (tam.X > nsize.Width)
+                    nsize.Width = tam.X + 20;
+                if (tam.Y > nsize.Height)
+                    nsize.Height = tam.Y + 20;
+                this.box.Size = nsize;
+            }
+            else
+            {
+                this.box.Image = null;
+                this.box.Dock = DockStyle.Fill;
+                g.NombreArchivoImagen = null;
+            }
+            salvado = false;
         }
 
         private void AgregaNodo(NodoVisual n)
@@ -645,6 +681,36 @@ namespace prims_kruskal
             MarcarResultado();
         }
 
+        private void fondoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rutaArchivo != null)
+            {
+                if (formImagen == null || formImagen.IsDisposed)
+                {
+                    formImagen = new formFondo { Ruta = Path.GetDirectoryName(rutaArchivo) };
+                    formImagen.OnSelecciona += FormImagen_OnSelecciona;
+                }
 
+                formImagen.Show();
+            }
+            else
+                MessageBox.Show("Debe haber archivo de datos cargado", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        }
+
+        private void FormImagen_OnSelecciona(object sender, formFondo.EventArgImagen e)
+        {
+            //MessageBox.Show(e.RutaImagen);
+            AsignarImagen(e.RutaImagen);
+
+        }
+
+        private void datosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new formDatos();
+            form.Enlaces = this.enlaces;
+
+            form.ShowDialog();
+
+        }
     }
 }

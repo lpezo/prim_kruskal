@@ -47,7 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos.cs" />
     <Compile Include="EnlaceVisual .cs" />
+    <Compile Include="formDatos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formDatos.Designer.cs">
+      <DependentUpon>formDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formFondo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formFondo.Designer.cs">
+      <DependentUpon>formFondo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +69,12 @@
     </Compile>
     <Compile Include="NodoVisual.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="formDatos.resx">
+      <DependentUpon>formDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formFondo.resx">
+      <DependentUpon>formFondo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
@@ -68,6 +87,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Datos.datasource" />
+    <None Include="Properties\DataSources\EnlaceVisual.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

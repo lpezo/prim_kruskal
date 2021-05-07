@@ -12,6 +12,8 @@ namespace ARM
         public List<Nodo> Nodos { get; private set; }
         private List<Enlace> Enlaces;
 
+        public string NombreArchivoImagen { get; set; }
+
         /// <summary>
         /// Constructor de grafo. Inicializa el grafo
         /// </summary>
@@ -19,6 +21,7 @@ namespace ARM
         {
             this.Nodos = new List<Nodo>();
             this.Enlaces = new List<Enlace>();
+            NombreArchivoImagen = null;
         }
 
         /// <summary>
@@ -206,53 +209,52 @@ namespace ARM
             }
         }
         public RegResp getCosto(string desde, string hasta, out List<Nodo> listaNodos)
-        {
-            LimpiarVisitados();
-            var first = this.Nodos.FirstOrDefault(p => p.nombre == desde);
+        {                                                                      // Inicio de Algoritmo Costo Uniforme
+            LimpiarVisitados();                                                // Limpiar Visitados
+            var first = this.Nodos.FirstOrDefault(p => p.nombre == desde);     // Ubicar el primer nodo
             
             if (first == null)
                 throw new Exception("Nodo {0} no encontrado");
 
-            List<Nodo> lista = new List<Nodo>();
-            var resp = calcularCosto(0, first, hasta, lista);
-            listaNodos = lista;
+            List<Nodo> lista = new List<Nodo>();                               // Se inicia una lista vacía
+            var resp = calcularCosto(0, first, hasta, lista);                  // Llamar a la función Calcular Costo
+            listaNodos = lista;                                                // Devolver la lista de resultados
 
-            return resp;
+            return resp;                                                       // Devolver el si encontro y el costo
         }
         private RegResp calcularCosto(int costo, Nodo nodo, string hasta, List<Nodo> lista)
         {
             lista.Add(nodo);
-            if (nodo.nombre == hasta)
+            if (nodo.nombre == hasta)                                          // Finaliza cuando encuentra el nodo final
             {
                 return new RegResp(true, costo);
             }
-            nodo.visitado = true;
-            var ramas = GetEnlaces(nodo);
+            nodo.visitado = true;                                              // Se marca el nodo para no visitarlo
+            var ramas = GetEnlaces(nodo);                                      // Se obtiene las ramas del nodo actual
             RegResp resp = new RegResp(false, costo);
-            if (ramas.Count == 0)
-            {
-                nodo.visitado = false;
+            if (ramas.Count == 0)                                              // Si el nodo no tiene ramas
+            {                                                                  //    entonces se retorna
+                nodo.visitado = false;                                         //    se retira la marca de visitados
                 return resp;
             }
-            List<Nodo> listaMenor = null;
+            List<Nodo> listaMenor = null;                                      // Se empieza a buscar la rama de menor costo
             var mincosto = int.MaxValue;
             foreach (var rama in ramas)
             {
-                var listaNuevo = new List<Nodo>();
-                //listaNuevo.Add(rama.NodoB);
-                //var costoRama = rama.Peso;
-                var curresp = calcularCosto(costo + rama.Peso, nodo != rama.NodoA ? rama.NodoA : rama.NodoB, hasta, listaNuevo);
-                if (curresp.enc && mincosto > curresp.costo)
+                var listaNuevo = new List<Nodo>();                             // Nueva lista de nodos interna
+                var curresp = calcularCosto(costo + rama.Peso,                 // Se calcula el costo de la rama
+                    nodo != rama.NodoA ? rama.NodoA : rama.NodoB, hasta, listaNuevo);
+                if (curresp.enc && mincosto > curresp.costo)                   // Si encontro el final y el costo es el menor entonces se guarda
                 {
                     mincosto = curresp.costo;
                     resp = curresp;
                     listaMenor = listaNuevo;
                 }
             }
-            if (listaMenor != null)
+            if (listaMenor != null)                                            // Se agrega la rama menor encontrada
                 lista.AddRange(listaMenor);
-            nodo.visitado = false;
-            return resp;
+            nodo.visitado = false;                                             // Se desmarca visitado
+            return resp;                                                       // Se retorna el encontrado y costo de la rama
         }
 
         public RegResp getAEstrella(string desde, string hasta, out List<Nodo> listaNodos)
